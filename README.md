@@ -1,1 +1,11 @@
+## Requirements for deployment version
+-f https://download.pytorch.org/whl/torch_stable.html
+fastapi
+python-multipart
+gunicorn
+numpy
+opencv-python-headless
+Pillow
+torch==1.11.0+cpu
+uvicorn
 
