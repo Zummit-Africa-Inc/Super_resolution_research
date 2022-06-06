@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Super Resolution Model API
 [![Language](https://img.shields.io/badge/Python-yellow.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![Framework](https://img.shields.io/badge/Pytorch-red.svg?style=flat&logo=pytorch&logoColor=white)](http://www.pytorch.org/news.html)
@@ -136,5 +137,23 @@ The api and its documentation can be viewed here: https://super-resolution-api.h
 ## Live Link
 [Image Super Resolution API](https://super-resolution-api.herokuapp.com/docs)
 
+=======
+## Requirements for colab version
+  1. colabcode
+  2. fastapi
+  3. uvicorn
+  4. python-multipart
+
+## Requirements for deployment version
+  1. -f https://download.pytorch.org/whl/torch_stable.html
+  2. fastapi
+  3. python-multipart
+  4. gunicorn
+  5. numpy
+  6. opencv-python-headless
+  7. Pillow
+  8. torch==1.11.0+cpu
+  9. uvicorn
+>>>>>>> 064328ac3f16476262c0ea500f010e76591688d7
 
 
