@@ -4,43 +4,32 @@ from fastapi.responses import StreamingResponse, FileResponse
 import numpy as np
 import io
 from PIL import Image
-import torch
-import RRDBNet_arch as arch 
+from ISR.models import RDN
 import cv2
 
-app = FastAPI(debug=True)
+app = FastAPI()
 
-model_path = 'RRDB_ESRGAN_x4.pth'  
-#device = torch.device('cuda')  # if you want to run on CPU, change 'cuda' -> cpu
-device = torch.device('cpu')
+def load_image_into_numpy_array(data):
+    return np.array(Image.open(io.BytesIO(data)))
+    
 
-model = arch.RRDBNet(3, 3, 64, 23, gc=32)
-model.load_state_dict(torch.load(model_path), strict=True)
-model.eval()
-model = model.to(device)
+
+rdn = RDN(weights='noise-cancel')
+
+
 
 @app.post("/")
 async def root(file: UploadFile = File(...)):
+
+    # image = load_image_into_numpy_array(await file.read())
+
     contents = io.BytesIO(await file.read())
     file_bytes = np.asarray(bytearray(contents.read()), dtype=np.uint8)
     img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-    
 
-    img = img * 1.0 / 255
-    img = torch.from_numpy(np.transpose(img[:, :, [2, 1, 0]], (2, 0, 1))).float()
-    img_LR = img.unsqueeze(0)
-    img_LR = img_LR.to(device)
+    sr_img = rdn.predict(img, by_patch_of_size=300)
+    # Image.fromarray(sr_img)
+    res, im_png = cv2.imencode(".png", sr_img)
 
-    with torch.no_grad():
-        output = model(img_LR).data.squeeze().float().cpu().clamp_(0, 1).numpy()
-    output = np.transpose(output[[2, 1, 0], :, :], (1, 2, 0))
-    output = (output * 255.0).round()
-
-    
-    #cv2.imwrite('results.png', output)
-    #return Response('results.png', media_type="image/png")
-    res, im_png = cv2.imencode(".png", output)
     return StreamingResponse(io.BytesIO(im_png.tobytes()), media_type="image/png")
 
-if __name__ == '__main__': 
-    uvicorn.run(app)

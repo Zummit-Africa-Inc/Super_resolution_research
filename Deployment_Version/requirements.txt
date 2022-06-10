@@ -1,10 +1,10 @@
--f https://download.pytorch.org/whl/torch_stable.html
+h5py==2.10.0
 fastapi
 python-multipart
 gunicorn
-numpy
-opencv-python-headless
-Pillow
-torch==1.11.0+cpu
-uvicorn
-
+numpy==1.21.6
+opencv-python-headless==4.4.0.42
+Pillow==9.1.1
+ISR==2.2.0
+uvicorn==0.17.6
+protobuf==3.20.*
