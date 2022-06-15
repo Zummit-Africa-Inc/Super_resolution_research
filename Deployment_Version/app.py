@@ -24,6 +24,10 @@ rdn = RDN(weights='noise-cancel')
 
 colorizer = get_image_colorizer(artistic=True)
 
+@app.get('/')
+def home():
+    return {'Title': 'Super Resolution and Coloriser API'}
+
 
 # Endpoint for enhancing resolution and colorization of image
 @app.post("/enhance_and_colorise")
@@ -70,8 +74,7 @@ async def root(file: UploadFile = File(...)):
 
     return StreamingResponse(io.BytesIO(im_png.tobytes()), media_type="image/png")
 
-# endpoint for just colorising the image
-# Please review this section I may have mixed up something
+
 @app.post("/colorise")
 async def root(file: UploadFile = File(...)):
 
@@ -84,14 +87,13 @@ async def root(file: UploadFile = File(...)):
     
     cv2.imwrite("new.jpg",img)
 
-    sr_img = colorizer.get_transformed_image(img, render_factor=35)
+    sr2_img = colorizer.get_transformed_image("new.jpg", render_factor=35)
     
-    new_img = np.array(sr_img)
+    new_img = np.array(sr2_img)
     
-    res, im_png = cv2.imencode(".png", new_img) 
+    res, im2_png = cv2.imencode(".png", new_img) 
 
-    return StreamingResponse(io.BytesIO(im_png.tobytes()), media_type="image/png")
-
+    return StreamingResponse(io.BytesIO(im2_png.tobytes()), media_type="image/png")
 
 
 
