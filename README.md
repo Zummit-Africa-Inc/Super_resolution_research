@@ -7,7 +7,7 @@
 ![Docker](https://img.shields.io/badge/Docker-blue?style=flat&logo=docker&logoColor=white)
 ![build](https://img.shields.io/badge/build-passing-brightgreen.svg?style=flat)
 
-An API used to upscale the resolution of a given input image. Built with Pytorch, FastAPI and Docker.
+An API used to upscale the resolution and improve the colour of a given input image. Built with Pytorch, FastAPI and Docker.
 
 
 
