@@ -41,9 +41,11 @@ Xintao Wang, Ke Yu, Shixiang Wu, Jinjin Gu, Yihao Liu, Chao Dong, Chen Change Lo
 ## Colorization
 We used Deoldify: A Deep Learning (DL) based project for colorizing and restoring old images and videos. It helps us add color to old black and white photos adding life to them. The DL model uses a unique NoGAN architecture to train the model.
 
-[Code](https://github.com/jantic/DeOldify)
 
 [Resource](https://www.section.io/engineering-education/image-colorization-using-ai-and-python/#the-deoldify-model)
+
+[Code](https://github.com/jantic/DeOldify)
+
 
 ## Preview
 
