@@ -33,7 +33,6 @@ The Super-Resolution Generative Adversarial Network (SRGAN) is a seminal work th
 ESRGAN: Enhanced Super-Resolution Generative Adversarial Networks
 
 Xintao Wang, Ke Yu, Shixiang Wu, Jinjin Gu, Yihao Liu, Chao Dong, Chen Change Loy, Yu Qiao, Xiaoou Tang
-
 [Paper](https://arxiv.org/pdf/1609.04802) 
 
 [Code(PyTorch)](https://github.com/xinntao/ESRGAN)
