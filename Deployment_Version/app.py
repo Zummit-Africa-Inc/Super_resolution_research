@@ -1,4 +1,4 @@
-#import os
+import os
 #os.chdir("/content/DeOldify/")
 import uvicorn
 from fastapi import FastAPI, File, UploadFile, Response
@@ -24,9 +24,10 @@ rdn = RDN(weights='noise-cancel')
 
 colorizer = get_image_colorizer(artistic=True)
 
+
 @app.get('/')
 def home():
-    return {'Title': 'Super Resolution and Coloriser API'}
+    return {'Title': 'Super Resolution and Colorisation API'}
 
 
 # Endpoint for enhancing resolution and colorization of image
@@ -74,7 +75,8 @@ async def root(file: UploadFile = File(...)):
 
     return StreamingResponse(io.BytesIO(im_png.tobytes()), media_type="image/png")
 
-
+# endpoint for just colorising the image
+# Please review this section I may have mixed up something
 @app.post("/colorise")
 async def root(file: UploadFile = File(...)):
 
@@ -86,14 +88,22 @@ async def root(file: UploadFile = File(...)):
     img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR) 
     
     cv2.imwrite("new.jpg",img)
+    
+    #sr_img = rdn.predict(img, by_patch_of_size=300)
+    
+   # res, im_png = cv2.imencode(".png", sr_img)
+    
+    #images = io.BytesIO(im_png.tobytes())
 
     sr2_img = colorizer.get_transformed_image("new.jpg", render_factor=35)
     
     new_img = np.array(sr2_img)
+    # img = cv2.imdecode(np.array(sr_img), cv2.IMREAD_COLOR)
     
     res, im2_png = cv2.imencode(".png", new_img) 
 
     return StreamingResponse(io.BytesIO(im2_png.tobytes()), media_type="image/png")
+
 
 
 
