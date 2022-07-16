@@ -20,8 +20,8 @@ RUN pip install --upgrade setuptools
 
 COPY . .
 
-RUN chmod u+x /setup.sh
+RUN chmod u+x setup.sh
 
-RUN /setup.sh
+RUN ./setup.sh
 
 CMD uvicorn app:app --reload --host 0.0.0.0 --port 8000
