@@ -1,11 +1,6 @@
-# Update and install requirements
-# sudo apt-get update
-# sudo apt install -y python3-pip nginx
-# sudo apt install -y uvicorn
-# # Copy the configuration file to the nginx enabled sites folder
-# sudo cp -R fastapi_setup /etc/nginx/sites-enabled/
-# sudo service nginx restart
+sudo service nginx restart
 sudo git clone https://github.com/Nneji123/DeOldify.git ~/DeOldify
+sudo cp -R fastapi_setup /etc/nginx/sites-enabled/
 cd ~/DeOldify
 sudo pip3 install -r requirements.txt
 sudo wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
@@ -22,5 +17,7 @@ sudo wget -O ~/DeOldify/models/ColorizeArtistic_gen.pth https://data.deepai.org/
 sudo wget -O ~/DeOldify/models/ColorizeVideo_gen.pth https://data.deepai.org/deoldify/ColorizeVideo_gen.pth
 #cp -R ~/Super_resolution_research/app.py ~/DeOldify 
 
-uvicorn app:app --reload 
+sudo kill -9 $(sudo lsof -t -i:80)
+sudo service nginx restart
+# Run the application with nohup so the application runs as a background process
 
