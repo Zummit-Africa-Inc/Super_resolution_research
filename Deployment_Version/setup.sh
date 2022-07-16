@@ -1,3 +1,4 @@
+#!/bin/sh
 sudo service nginx restart
 sudo git clone https://github.com/Nneji123/DeOldify.git ~/DeOldify
 sudo cp -R fastapi_setup /etc/nginx/sites-enabled/
