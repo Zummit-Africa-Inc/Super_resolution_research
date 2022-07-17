@@ -23,4 +23,6 @@ RUN chmod u+x setup.sh
 
 RUN ./setup.sh
 
+RUN mkdir /app/models && wget /app https://data.deepai.org/deoldify/ColorizeArtistic_gen.pth && wget -O /app/models https://data.deepai.org/deoldify/ColorizeVideo_gen.pth
+
 CMD uvicorn app:app --reload --host 0.0.0.0 --port 8000
