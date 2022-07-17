@@ -29,8 +29,4 @@ ADD https://download.pytorch.org/models/resnet34-333f7ec4.pth /root/.torch/model
 
 RUN mkdir -p ./models
 
-ADD https://data.deepai.org/deoldify/ColorizeArtistic_gen.pth ./models/ColorizeArtistic_gen.pth
-
-COPY ./models /app
-
 CMD uvicorn app:app --reload --host 0.0.0.0 --port 8000
