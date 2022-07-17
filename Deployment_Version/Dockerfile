@@ -6,6 +6,7 @@ RUN apt-get -y update  && apt-get install -y \
   python3-dev \
   apt-utils \
   git \
+  python3-opencv \
   uvicorn \
   python-dev \
   build-essential \ 
@@ -18,16 +19,18 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-#RUN mkdir /app
-
 COPY . /app
 
-#RUN chmod u+x setup.sh && ./setup.sh
 RUN mkdir -p /root/.torch/models 
+
 ADD https://download.pytorch.org/models/vgg16_bn-6c64b313.pth /root/.torch/models/ 
+
 ADD https://download.pytorch.org/models/resnet34-333f7ec4.pth /root/.torch/models/ 
-#RUN mkdir -p /app/models
+
 RUN mkdir -p ./models
-ADD https://data.deepai.org/deoldify/ColorizeArtistic_gen.pth ./models 
+
+ADD https://data.deepai.org/deoldify/ColorizeArtistic_gen.pth ./models/ColorizeArtistic_gen.pth
+
+COPY ./models /app
 
 CMD uvicorn app:app --reload --host 0.0.0.0 --port 8000

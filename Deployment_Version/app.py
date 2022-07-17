@@ -1,5 +1,6 @@
 import os
-#os.chdir("/content/DeOldify/")
+#cmd = "wget -O ./models/ColorizeArtistic_gen.pth https://data.deepai.org/deoldify/ColorizeArtistic_gen.pth"
+#os.system(cmd)
 import uvicorn
 from fastapi import FastAPI, File, UploadFile, Response
 from fastapi.responses import StreamingResponse, FileResponse
