@@ -6,7 +6,6 @@ RUN apt-get -y update  && apt-get install -y \
   python3-dev \
   apt-utils \
   git \
-  ngrok \
   uvicorn \
   python-dev \
   build-essential \
