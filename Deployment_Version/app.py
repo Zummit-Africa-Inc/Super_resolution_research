@@ -10,7 +10,7 @@ import cv2
 from deoldify import device
 from deoldify.device_id import DeviceId
 #choices:  CPU, GPU0...GPU7
-device.set(device=DeviceId.GPU0)
+device.set(device=DeviceId.CPU)
 import torch
 import fastai
 from ISR.models import RDN
