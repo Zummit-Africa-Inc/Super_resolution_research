@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  backend:
+    build: backend
+    ports:
+      - 8000:8000
+    networks: 
+      AIservice: 
+        aliases: 
+          - backend.docker
+    volumes:
+      - ./backend:/app
+      - ./storage:/storage
+
+networks:
+  AIservice:
+    external: true
