@@ -1,18 +1,9 @@
-version: "3.7"
-
 services:
-  backend:
-    build: backend
+  app:
+    build: .
+    container_name: simple-python-server
+    command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
     ports:
-      - 8000:8000
-    networks: 
-      AIservice: 
-        aliases: 
-          - backend.docker
+      - 8080:8000
     volumes:
-      - ./backend:/app
-      - ./storage:/storage
-
-networks:
-  AIservice:
-    external: true
+      - .:/app
