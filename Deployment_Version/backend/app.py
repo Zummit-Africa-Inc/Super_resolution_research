@@ -1,5 +1,10 @@
 import os
-#os.chdir("/content/DeOldify/")
+import os.path
+if os.path.exists("./models/ColorizeArtistic_gen.pth") == False:
+    cmd = "wget -O ./models/ColorizeArtistic_gen.pth https://data.deepai.org/deoldify/ColorizeArtistic_gen.pth"
+    os.system(cmd)
+else:
+    pass
 import uvicorn
 from fastapi import FastAPI, File, UploadFile, Response
 from fastapi.responses import StreamingResponse, FileResponse
