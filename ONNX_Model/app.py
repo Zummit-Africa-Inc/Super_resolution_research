@@ -9,7 +9,7 @@ import cv2
 from ISR.models import RDN
 import warnings
 import onnxruntime 
-warnings.filterwarnings("ignore", category=UserWarning, message=".*?Your .*? set is empty.*?")
+warnings.filterwarnings("ignore")
 
 app = FastAPI()
 
