@@ -1,0 +1,5 @@
+ISR
+h5py==2.10.0
+onnxruntime
+tf2onnx
+fastapi[all]
