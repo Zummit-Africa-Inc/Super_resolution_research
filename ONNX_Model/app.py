@@ -9,7 +9,7 @@ import cv2
 from ISR.models import RDN
 import warnings
 import onnxruntime 
-warnings.filterwarnings("ignore")
+warnings.filterwarnings("ignore", category=UserWarning, message=".*?Your .*? set is empty.*?")
 
 app = FastAPI()
 
@@ -26,26 +26,18 @@ async def root(file: UploadFile = File(...)):
     
 
     contents = io.BytesIO(await file.read())
-    file_bytes = np.asarray(bytearray(contents.read()), dtype=np.uint8)
-    x = np.array(file_bytes,dtype=np.float) 
-    x = np.expand_dims(x, (1, 2))
-    
-    sess = onnxruntime.InferenceSession("/content/model.onnx")
+    new_img = Image.open(contents) 
+    x = np.array(new_img,dtype=np.float32) 
+    x = np.expand_dims(x, axis=0)
+    sess = onnxruntime.InferenceSession("model.onnx")
     x = x if isinstance(x, list) else [x]
     feed = dict([(input.name, x[n]) for n, input in enumerate(sess.get_inputs())])
     pred_onnx = sess.run(None,  feed)[0]
     pred = np.squeeze(pred_onnx)
     pred_img = Image.fromarray((pred * 1).astype(np.uint8)).convert('RGB')
-    res, im_png = cv2.imencode(".png", pred_img)
+    res, im_png = cv2.imencode(".png", np.array(pred_img))
     return StreamingResponse(io.BytesIO(im_png.tobytes()), media_type="image/png")
 
-    #contents = io.BytesIO(await file.read())
-    #file_bytes = np.asarray(bytearray(contents.read()), dtype=np.uint8)
-    #img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-
-    #sr_img = rdn.predict(img, by_patch_of_size=300)
-
-    #res, im_png = cv2.imencode(".png", sr_img)
 
     
 
